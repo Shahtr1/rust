@@ -3,7 +3,7 @@
 fn main() {
     println!("Hello, world!");
     open_store("Kashmir");
-    open_store_2("also works");
+    open_store_2("also worksaaa");
 
     let result = (); // this is a unit, it is a default return value
 
