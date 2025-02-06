@@ -64,7 +64,7 @@ fn main() {
     println!("{employee:#?}");
     dbg!(employee);
 
-    let month_days = 1..31;
+    let month_days: std::ops::Range<i32> = 1..31;
     let month_days_inclusive = 1..=31;
 
     dbg!(month_days.clone()); // debug without consuming
