@@ -21,12 +21,16 @@ fn main() {
     // println!("{genius}");
 
     let person = String::from("Borris");
-    let genius = person.clone();
+    let mut genius = person.clone();
 
     println!("person is {person}");
+
+    print_my_string(&mut genius);
+
     println!("genius is {genius}");
 
     let handsome = &person;
+
     println!("handsome is {handsome}"); // display trait for reference automatically dereferences it
 
     println!("dereference handomse is {}", *handsome);
@@ -34,4 +38,19 @@ fn main() {
     /*
        &str ("ref str") - A reference to the text in the memory that has loaded the binary file
     */
+
+    let cake = bake_cake();
+    println!("I have a {cake} cake");
+}
+
+fn print_my_string(reference: &mut String) {
+    // let value = *reference; // cannot move from reference
+    println!("through function => {reference}");
+    reference.push_str(" and great");
+}
+
+fn bake_cake() -> String {
+    // let cake = String::from("Chocolate");
+    // return cake;
+    String::from("Chocolate")
 }
