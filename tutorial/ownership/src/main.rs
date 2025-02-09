@@ -1,3 +1,5 @@
+mod project;
+
 fn main() {
     let time = 2025;
     let year = time;
@@ -41,7 +43,48 @@ fn main() {
 
     let cake = bake_cake();
     println!("I have a {cake} cake");
+
+    let mut car = String::from("Red");
+    // let ref1 = &car;
+    // a value can have only one single mutable reference at the same time,
+    // also you cannot have mutable reference when immutabe reference already exists
+    let ref3 = &mut car;
+    let ref1 = &car;
+    let ref2 = &car;
+    println!("{ref1} and {ref2} and {}", &car);
+
+    // immutable reference implements the copy trait
+    let coffee = String::from("Mocha");
+    let a = &coffee;
+    let b = a;
+
+    println!("{} is equal to {}", a, b);
+
+    // mutable references do not implement the copy trait
+    let mut coffee = String::from("Mocha");
+    let a = &mut coffee;
+    let b = a;
+    // println!("{} is equal to {}", a, b); // ownership moves to b here
+
+    let registration = [true, false, true];
+    let first = registration[0];
+    println!("{first} and {registration:?}");
+
+    let languages = [String::from("Rust"), String::from("Java")];
+    let first = languages[0].clone(); // not recommended as it creates duplicates in heap
+    let second: &String = &languages[0];
+    println!("{first} and {second} and {registration:?}");
+
+    project::run();
 }
+
+// dangling references
+/*
+    fn create_city() -> &String {
+        let city = String::from("New York");
+        &city // this return value represents here a dangling references
+    }
+*/
 
 fn print_my_string(reference: &mut String) {
     // let value = *reference; // cannot move from reference
