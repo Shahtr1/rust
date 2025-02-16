@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, fmt::Debug};
 
 trait Accommodation {
     fn book(&mut self, name: &str, nights: u32);
@@ -105,6 +105,15 @@ where
     second.book(guest, 1);
 }
 
+fn choose_best_place_to_stay() -> impl Accommodation + Description + Debug {
+    let likes_luxury = true;
+    if likes_luxury {
+        Hotel::new("Lux Continental")
+    } else {
+        Hotel::new("Continental")
+    }
+}
+
 fn main() {
     let mut hotel = Hotel::new("The Luxe");
     println!("{}", hotel.get_description());
@@ -141,4 +150,10 @@ fn main() {
 
     println!("Booked hotel: {:#?}", hotel2);
     println!("Booked AirBnB: {:#?}", airbnb);
+
+    let mut continental = choose_best_place_to_stay();
+
+    mix_and_match(&mut continental, &mut airbnb, "Crazy Guy");
+
+    println!("Booked Continental: {:#?}", continental);
 }
