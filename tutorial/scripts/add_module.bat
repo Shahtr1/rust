@@ -13,7 +13,7 @@ if "%1"=="" (
 
 set MODULE_NAME=%1
 set MODULE_PATH=%CD%\%MODULE_NAME%
-set COMMON_PATH=%CD%\common
+set COMMON_PATH=..\common  :: ✅ FIXED: Correct path for common
 
 :: Step 1: Create a new Rust module in the correct location
 echo 🚀 Creating new Rust module: %MODULE_NAME%

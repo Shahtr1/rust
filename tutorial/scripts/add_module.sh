@@ -12,7 +12,7 @@ fi
 
 MODULE_NAME=$1
 MODULE_PATH="./$MODULE_NAME"  # ✅ Create module in the project root
-COMMON_PATH="./common"
+COMMON_PATH="../common"       # ✅ FIXED: Correct path for common
 
 # Step 1: Create a new Rust binary crate in the correct location
 echo "🚀 Creating new Rust module: $MODULE_NAME"
