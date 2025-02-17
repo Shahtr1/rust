@@ -22,9 +22,14 @@ cargo new "$MODULE_PATH"
 echo "🔧 Adding $MODULE_NAME to the workspace members..."
 sed -i "/members = \[/ a \    \"$MODULE_NAME\"," Cargo.toml
 
-# Step 3: Add `common` as a dependency in the new module
-echo "🔗 Adding common as a dependency..."
-echo -e "\n[dependencies]\ncommon = { path = \"$COMMON_PATH\" }" >> "$MODULE_PATH/Cargo.toml"
+# Step 3: Add `common` as a dependency, but only if `[dependencies]` already exists
+if grep -q "^\[dependencies\]" "$MODULE_PATH/Cargo.toml"; then
+    echo "🔗 Appending common dependency under existing [dependencies]..."
+    sed -i "/^\[dependencies\]/a common = { path = \"$COMMON_PATH\" }" "$MODULE_PATH/Cargo.toml"
+else
+    echo "🔗 Adding new [dependencies] section..."
+    echo -e "\n[dependencies]\ncommon = { path = \"$COMMON_PATH\" }" >> "$MODULE_PATH/Cargo.toml"
+fi
 
 # Step 4: Confirm success
 echo "✅ Module $MODULE_NAME added successfully in the project root!"

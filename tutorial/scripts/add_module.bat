@@ -30,11 +30,24 @@ echo 🔧 Adding %MODULE_NAME% to the workspace members...
 )) > Cargo_temp.toml
 move /Y Cargo_temp.toml Cargo.toml >nul
 
-:: Step 3: Add `common` as a dependency in the new module
-echo 🔗 Adding common as a dependency...
-echo.>> "%MODULE_PATH%\Cargo.toml"
-echo [dependencies]>> "%MODULE_PATH%\Cargo.toml"
-echo common = { path = "%COMMON_PATH%" }>> "%MODULE_PATH%\Cargo.toml"
+:: Step 3: Add `common` as a dependency only if `[dependencies]` exists
+echo 🔗 Checking if [dependencies] exists...
+findstr /R "^\[dependencies\]" "%MODULE_PATH%\Cargo.toml" >nul
+if %errorlevel%==0 (
+    echo 🔗 Appending common dependency under existing [dependencies]...
+    (for /f "tokens=*" %%a in (%MODULE_PATH%\Cargo.toml) do (
+        echo %%a
+        echo %%a | findstr /R "^\[dependencies\]" >nul && (
+            echo common = { path = "%COMMON_PATH%" }
+        )
+    )) > "%MODULE_PATH%\Cargo_temp.toml"
+    move /Y "%MODULE_PATH%\Cargo_temp.toml" "%MODULE_PATH%\Cargo.toml" >nul
+) else (
+    echo 🔗 Adding new [dependencies] section...
+    echo.>> "%MODULE_PATH%\Cargo.toml"
+    echo [dependencies]>> "%MODULE_PATH%\Cargo.toml"
+    echo common = { path = "%COMMON_PATH%" }>> "%MODULE_PATH%\Cargo.toml"
+)
 
 :: Step 4: Confirm success
 echo ✅ Module %MODULE_NAME% added successfully in the project root!
