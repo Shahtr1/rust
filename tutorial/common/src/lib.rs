@@ -9,6 +9,9 @@ pub fn separator(heading: &str) {
         return;
     }
 
+    println!("");
+    println!("");
+
     let available_length = dot_length - length;
     let left_length = available_length / 2;
     println!("{}", "*".repeat(dot_length));
@@ -21,4 +24,5 @@ pub fn separator(heading: &str) {
     }
     println!("");
     println!("{}", "*".repeat(dot_length));
+    println!("");
 }
