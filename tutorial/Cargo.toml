@@ -1,0 +1,19 @@
+[workspace]
+members = [
+    "common",
+    "control-flow",
+    "data-types",
+    "enums",
+    "error-handling",
+    "functions",
+    "generics",
+    "hash-maps",
+    "options-and-results-enums",
+    "ownership",
+    "slices",
+    "strings",
+    "structs",
+    "traits",
+    "variables",
+    "vectors",
+]

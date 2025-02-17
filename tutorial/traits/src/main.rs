@@ -1,4 +1,9 @@
-use std::{collections::HashMap, fmt::Debug};
+use common::separator;
+
+use std::{
+    collections::HashMap,
+    fmt::{Debug, Display},
+};
 
 trait Accommodation {
     fn book(&mut self, name: &str, nights: u32);
@@ -11,31 +16,33 @@ trait Description {
 }
 
 #[derive(Debug)]
-struct Hotel {
-    name: String,
+struct Hotel<T> {
+    name: T,
     reservations: HashMap<String, u32>,
 }
 
-impl Hotel {
-    fn new(name: &str) -> Self {
+impl<T> Hotel<T> {
+    fn new(name: T) -> Self {
         Self {
-            name: name.to_string(),
+            name,
             reservations: HashMap::new(),
         }
     }
+}
 
+impl<T: Display> Hotel<T> {
     fn summarize(&self) -> String {
         format!("{}: {}", self.name, self.get_description())
     }
 }
 
-impl Accommodation for Hotel {
+impl<T> Accommodation for Hotel<T> {
     fn book(&mut self, name: &str, nights: u32) {
         self.reservations.insert(name.to_string(), nights);
     }
 }
 
-impl Description for Hotel {}
+impl<T> Description for Hotel<T> {}
 
 #[derive(Debug)]
 
@@ -156,4 +163,6 @@ fn main() {
     mix_and_match(&mut continental, &mut airbnb, "Crazy Guy");
 
     println!("Booked Continental: {:#?}", continental);
+
+    separator("Trait Bounds");
 }
