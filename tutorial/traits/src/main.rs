@@ -108,7 +108,6 @@ fn main() {
     println!("Hello to u8 vector: {:?}", string_vector);
 
     separator("Default");
-
     #[derive(Debug)]
     struct MyStruct {
         name: &'static str,
@@ -124,9 +123,15 @@ fn main() {
 
     separator("Associated Constants");
 
-    let income = Income { amount: 50000.50 };
-    println!("Total tax owed: {}", income.tax_bill());
+    let mut income = Income { amount: 50000.50 };
+    println!("Total tax owed: {:.2}", income.tax_bill());
 
-    let bonus = Bonus { amount: 50000.50 };
-    println!("Total bonus: {}", bonus.tax_bill());
+    let mut bonus = Bonus { value: 50000.50 };
+    println!("Total bonus: {:.2}", bonus.tax_bill());
+
+    income.double_amount();
+    println!("Total income doubled: {:.2}", income.tax_bill());
+
+    bonus.double_amount();
+    println!("Total bonus doubled: {:.2}", bonus.tax_bill());
 }
