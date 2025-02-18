@@ -1,18 +1,17 @@
-mod common_traits;
-mod ops;
-mod utils;
-
-use common_traits::{convert_traits, defaultValue};
-use ops::MyAdd;
 use std::ops::Add;
 use std::str::FromStr;
 
 use common::separator;
-use utils::{
-    book_for_one_night, book_for_one_night_gen, choose_best_place_to_stay, mix_and_match,
-    mix_and_match_gen, mix_and_match_gen_where,
+use traits::{
+    common_traits::{convert_traits, defaultValue},
+    finance::{Bonus, Income, Taxable},
+    lodging::{Accommodation, AirBnB, Description, Hotel},
+    ops::MyAdd,
+    utils::{
+        book_for_one_night, book_for_one_night_gen, choose_best_place_to_stay, mix_and_match,
+        mix_and_match_gen, mix_and_match_gen_where,
+    },
 };
-use utils::{Accommodation, AirBnB, Description, Hotel};
 
 fn main() {
     let mut hotel = Hotel::new("The Luxe");
@@ -122,4 +121,12 @@ fn main() {
     }
 
     println!("{:#?}", defaultValue(MyStruct { name: "Jerry" }));
+
+    separator("Associated Constants");
+
+    let income = Income { amount: 50000.50 };
+    println!("Total tax owed: {}", income.tax_bill());
+
+    let bonus = Bonus { amount: 50000.50 };
+    println!("Total bonus: {}", bonus.tax_bill());
 }
