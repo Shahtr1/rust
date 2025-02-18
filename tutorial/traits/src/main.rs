@@ -1,8 +1,11 @@
+mod common_traits;
 mod ops;
 mod utils;
 
+use common_traits::{convert_traits, defaultValue};
 use ops::MyAdd;
 use std::ops::Add;
+use std::str::FromStr;
 
 use common::separator;
 use utils::{
@@ -95,4 +98,28 @@ fn main() {
     let b = 10;
     let sum = a.my_add(b);
     println!("{sum}");
+
+    separator("Conversions");
+    let numeric_count = u64::from_str("5");
+    println!("{}", numeric_count.unwrap());
+    let new_type = convert_traits::<u32, u64>(14);
+    let new_type = convert_traits::<i32, i64>(-14);
+    let new_type = convert_traits::<&str, String>("hi");
+    let string_vector = convert_traits::<&str, Vec<u8>>("Hello");
+    println!("Hello to u8 vector: {:?}", string_vector);
+
+    separator("Default");
+
+    #[derive(Debug)]
+    struct MyStruct {
+        name: &'static str,
+    }
+
+    impl Default for MyStruct {
+        fn default() -> Self {
+            Self { name: "Shahrukh" }
+        }
+    }
+
+    println!("{:#?}", defaultValue(MyStruct { name: "Jerry" }));
 }
