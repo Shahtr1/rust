@@ -4,9 +4,10 @@ use std::str::FromStr;
 use common::separator;
 use traits::{
     common_traits::{convert_traits, defaultValue},
-    finance::{Bonus, Income, Taxable},
+    finance::{Bonus, Income, Investment, QualityTime, Taxable},
     lodging::{Accommodation, AirBnB, Description, Hotel},
     ops::MyAdd,
+    std_traits_impl::{Apple, AppleType},
     utils::{
         book_for_one_night, book_for_one_night_gen, choose_best_place_to_stay, mix_and_match,
         mix_and_match_gen, mix_and_match_gen_where,
@@ -121,7 +122,7 @@ fn main() {
 
     println!("{:#?}", defaultValue(MyStruct { name: "Jerry" }));
 
-    separator("Associated Constants");
+    separator("Associated Constants and Generics");
 
     let mut income = Income { amount: 50000.50 };
     println!("Total tax owed: {:.2}", income.tax_bill());
@@ -134,4 +135,25 @@ fn main() {
 
     bonus.double_amount();
     println!("Total bonus doubled: {:.2}", bonus.tax_bill());
+
+    let weekend = QualityTime { minutes: 120 };
+    println!("Relaxation time: {:.2} minutes", weekend.amount());
+
+    separator("Implementing Display Trait");
+
+    let lunch_snack = Apple {
+        kind: AppleType::GrannySmiths,
+        price: 1.04,
+    };
+
+    println!("{}", lunch_snack);
+    println!("{:?}", lunch_snack);
+
+    let lunch_snack = Apple {
+        kind: AppleType::RedDelicious,
+        price: 2.50,
+    };
+
+    println!("{}", lunch_snack);
+    println!("{:?}", lunch_snack);
 }
