@@ -1,7 +1,7 @@
 [workspace]
 members = [
     "common",
-    "control-flow",
+    "ctrl-flow",
     "data-types",
     "enums",
     "error-handling",
