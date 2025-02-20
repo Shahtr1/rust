@@ -1,7 +1,8 @@
-use std::ops::Add;
 use std::str::FromStr;
+use std::{fs, ops::Add};
 
 use common::separator;
+use traits::std_traits_impl::{Appointment, Duration};
 use traits::{
     common_traits::{convert_traits, defaultValue},
     finance::{Bonus, Income, Investment, QualityTime, Taxable},
@@ -155,5 +156,20 @@ fn main() {
     };
 
     println!("{}", lunch_snack);
-    println!("{:?}", lunch_snack);
+    println!("{:#?}", lunch_snack);
+
+    separator("Implementing Clone Trait");
+    let morning_appt = Appointment::new("Dr. Andrews", "9:00AM", "10:00AM");
+    let replacement_app = morning_appt.clone();
+    println!(
+        "{} is seeing the patient from {} to {}",
+        replacement_app.doctor, replacement_app.start_time, replacement_app.end_time
+    );
+
+    separator("Implementing Copy Trait");
+    let one_hour = Duration::new(1, 0, 0);
+    let another_hour = one_hour;
+    println!("{:?}", one_hour);
+
+    separator("Implementing Partial Equality Trait");
 }
