@@ -61,7 +61,7 @@ impl Drop for Apple {
             }
         } else {
             // apple.txt does not exist, skipping deletion.
-            // println!("apple.txt does not exist, skipping deletion.");
+            println!("apple.txt does not exist, skipping deletion.");
         }
     }
 }
