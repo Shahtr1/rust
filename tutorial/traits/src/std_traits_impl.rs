@@ -1,4 +1,5 @@
 use std::{
+    cmp::Ordering,
     fmt::{Debug, Display, Formatter, Result},
     fs,
 };
@@ -61,7 +62,7 @@ impl Drop for Apple {
             }
         } else {
             // apple.txt does not exist, skipping deletion.
-            println!("apple.txt does not exist, skipping deletion.");
+            // println!("apple.txt does not exist, skipping deletion.");
         }
     }
 }
@@ -110,3 +111,97 @@ impl Duration {
 }
 
 impl Copy for Duration {}
+
+// #[derive(PartialEq)]
+pub struct Flight {
+    pub origin: String,
+    pub destination: String,
+    pub time: String,
+}
+
+impl Flight {
+    pub fn new(origin: &str, destination: &str, time: &str) -> Self {
+        Self {
+            origin: origin.to_string(),
+            destination: destination.to_string(),
+            time: time.to_string(),
+        }
+    }
+}
+
+impl PartialEq for Flight {
+    fn eq(&self, other: &Self) -> bool {
+        self.origin == other.origin && self.destination == other.destination
+    }
+}
+
+pub struct BusTrip {
+    pub origin: String,
+    pub destination: String,
+    pub time: String,
+}
+
+impl BusTrip {
+    pub fn new(origin: &str, destination: &str, time: &str) -> Self {
+        Self {
+            origin: origin.to_string(),
+            destination: destination.to_string(),
+            time: time.to_string(),
+        }
+    }
+}
+
+impl PartialEq<BusTrip> for Flight {
+    fn eq(&self, other: &BusTrip) -> bool {
+        self.origin == other.origin && self.destination == other.destination
+    }
+}
+
+impl PartialEq<Flight> for BusTrip {
+    fn eq(&self, other: &Flight) -> bool {
+        self.origin == other.origin && self.destination == other.destination
+    }
+}
+
+// #[derive(PartialEq)]
+pub enum Musician {
+    SingerSongwriter(String),
+    Band(u32),
+}
+
+impl PartialEq for Musician {
+    fn eq(&self, other: &Self) -> bool {
+        match self {
+            Self::SingerSongwriter(name) => match other {
+                Self::SingerSongwriter(other_name) => name == other_name,
+                Self::Band(_) => false,
+            },
+            Self::Band(members) => match other {
+                Self::SingerSongwriter(_) => false,
+                Self::Band(other_members) => members == other_members,
+            },
+        }
+    }
+}
+
+#[derive(PartialEq, Eq)]
+pub struct Job {
+    pub salary: u32,
+    pub commute_time: u32,
+}
+
+impl PartialOrd for Job {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        self.salary.partial_cmp(&other.salary)
+
+        // if self.salary == other.salary {
+        //     Some(Ordering::Equal)
+        // } else if self.salary < other.salary {
+        //     Some(Ordering::Less)
+        // } else if self.salary > other.salary {
+        //     Some(Ordering::Greater)
+        // } else {
+        //     None
+        // }
+    }
+}

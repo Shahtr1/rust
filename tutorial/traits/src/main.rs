@@ -2,7 +2,8 @@ use std::str::FromStr;
 use std::{fs, ops::Add};
 
 use common::separator;
-use traits::std_traits_impl::{Appointment, Duration};
+use traits::associated_types::{add_two_numbers, Lunch};
+use traits::std_traits_impl::{Appointment, BusTrip, Duration, Flight, Job, Musician};
 use traits::{
     common_traits::{convert_traits, defaultValue},
     finance::{Bonus, Income, Investment, QualityTime, Taxable},
@@ -171,6 +172,77 @@ fn main() {
     let another_hour = one_hour;
     println!("{:?}", one_hour);
 
-    separator("Implementing Partial Equality Trait");
+    separator("Check root dir");
     println!("{:?}", std::env::current_dir());
+
+    separator("Implementing Partial Equality Trait");
+
+    let flight1 = Flight::new("New York", "India", "08:00");
+    let flight2 = Flight::new("New York", "London", "23:20");
+    let flight3 = Flight::new("New York", "India", "08:20");
+
+    println!("{}", flight1 == flight2);
+    println!("{}", flight1.eq(&flight2));
+    println!("{}", flight1 == flight3);
+    println!("{}", flight1.eq(&flight3));
+    println!("{}", flight1.ne(&flight3));
+
+    separator("Equality for different types");
+    let bus_trip1 = BusTrip::new("New York", "London", "23:20");
+    let bus_trip2 = BusTrip::new("New York", "India", "08:20");
+
+    println!("{}", flight1 == bus_trip2);
+    println!("{}", flight1.eq(&bus_trip2));
+    println!("{}", bus_trip1 == flight3);
+    println!("{}", bus_trip1.eq(&flight3));
+    println!("{}", flight1.ne(&flight3));
+
+    separator("Equality for Enum");
+    let rustin_beiber = Musician::SingerSongwriter("Rustin".to_string());
+    let rustin_timberlake = Musician::SingerSongwriter("Rustin".to_string());
+    let holly = Musician::SingerSongwriter("Holly".to_string());
+
+    let rust_no_one = Musician::Band(5);
+    let unrustworthy = Musician::Band(4);
+    let rust_for_vengence = Musician::Band(5);
+
+    println!("{}", rustin_beiber == holly);
+    println!("{}", rustin_beiber == rustin_timberlake);
+    println!("{}", rustin_beiber == rust_no_one);
+    println!("{}", rust_no_one == unrustworthy);
+    println!("{}", rust_no_one == rust_for_vengence);
+
+    let division = 0.0 / 0.0;
+    println!("{}", division); // NaN => still a float64
+
+    let value = 3.4;
+    println!("{}", value == value);
+    println!("{}", division == division); // false
+
+    separator("Implementing Partial Ord Trait");
+
+    let long_commute_job = Job {
+        salary: 100000,
+        commute_time: 2,
+    };
+
+    let short_commute_job = Job {
+        salary: 75000,
+        commute_time: 1,
+    };
+
+    println!("{}", long_commute_job > short_commute_job);
+    println!("{}", long_commute_job >= short_commute_job);
+    println!("{}", long_commute_job < short_commute_job);
+    println!("{}", long_commute_job == short_commute_job);
+
+    separator("Associated Types");
+    let lunch1 = Lunch { cost: 18.99 };
+    let lunch2 = Lunch { cost: 20.15 };
+    println!("{:#?}", lunch1 + lunch2);
+
+    let integer_sum = add_two_numbers(1, 2);
+    println!("{}", integer_sum);
+    let float_sum = add_two_numbers(1.3, 2.2);
+    println!("{}", float_sum);
 }

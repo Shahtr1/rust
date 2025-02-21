@@ -1,3 +1,4 @@
+pub mod associated_types;
 pub mod common_traits;
 pub mod finance;
 pub mod lodging;
