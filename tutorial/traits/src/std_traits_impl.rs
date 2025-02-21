@@ -53,7 +53,7 @@ impl Debug for Apple {
 
 impl Drop for Apple {
     fn drop(&mut self) {
-        let path = "/home/shahrukh/projects/rust/tutorial/traits/apple.txt";
+        let path = "traits/apple.txt";
         if fs::metadata(path).is_ok() {
             match fs::remove_file(path) {
                 Ok(_) => println!("Goodbye, my sweet apple"),

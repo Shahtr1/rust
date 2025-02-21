@@ -172,4 +172,5 @@ fn main() {
     println!("{:?}", one_hour);
 
     separator("Implementing Partial Equality Trait");
+    println!("{:?}", std::env::current_dir());
 }
