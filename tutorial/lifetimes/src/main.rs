@@ -1,6 +1,17 @@
 use std::char;
 
-pub fn capitalize(char_array: &mut [char]) {
+fn create() -> i32 {
+    let age = 100;
+    // &age // creates a dangling reference
+    age
+}
+
+fn create_number_reference(number: i32) -> i32 {
+    // &number // creates a dongling reference
+    number
+}
+
+fn capitalize(char_array: &mut [char]) {
     for char in char_array.iter_mut() {
         *char = char.to_uppercase().next().unwrap_or(*char);
     }
