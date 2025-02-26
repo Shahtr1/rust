@@ -19,6 +19,12 @@ fn capitalize(char_array: &mut [char]) {
     println!("{:?}", char_array);
 }
 
+fn select_first_two_elements<'a>(items: &'a [String]) -> &'a [String] {
+    // let selected_items = &items[..2];
+    // print!("{selected_items:?}");
+    &items[..2]
+}
+
 fn main() {
     let dog = String::from("Watson"); // referrant or lender
     let my_pet = &dog;
@@ -57,4 +63,20 @@ fn main() {
         &cities[0..2] // returns dangling reference
     };
     */
+
+    let cities = vec![
+        String::from("London"),
+        String::from("New York"),
+        String::from("Barcelona"),
+    ];
+
+    let two_cities = select_first_two_elements(&cities);
+    // drop(cities); // error
+    println!("{two_cities:?}");
+
+    {
+        let coffees = [String::from("Latte"), String::from("Mocha")];
+        let two_coffees = select_first_two_elements(&coffees);
+        println!("{two_coffees:?}")
+    }
 }
