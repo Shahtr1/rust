@@ -25,11 +25,29 @@ fn select_first_two_elements<'a>(items: &'a [String]) -> &'a [String] {
     &items[..2]
 }
 
-fn my_swesome_function(first: &String, value: &i32) -> &i32 {
-    value
+fn choose_favourite<'a, 'b>(first: &'a str, second: &'b str) -> &'a str {
+    first
+}
+
+fn choose_bad<'a, 'b>(first: &'a str, second: &'a str) -> &'a str {
+    if true {
+        first
+    } else {
+        second
+    }
 }
 
 fn main() {
+    let first = String::from("First String"); // Long-lived
+    let fav;
+
+    {
+        let second = String::from("Second String"); // Short-lived (lives only in this block)
+        fav = choose_favourite(&first, &second); // ❌ ERROR
+    } // `second` is dropped here!
+
+    println!("{}", fav);
+
     let dog = String::from("Watson"); // referrant or lender
     let my_pet = &dog;
     println!("{my_pet}");
