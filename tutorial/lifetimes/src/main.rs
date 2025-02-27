@@ -25,6 +25,10 @@ fn select_first_two_elements<'a>(items: &'a [String]) -> &'a [String] {
     &items[..2]
 }
 
+fn my_swesome_function(first: &String, value: &i32) -> &i32 {
+    value
+}
+
 fn main() {
     let dog = String::from("Watson"); // referrant or lender
     let my_pet = &dog;
