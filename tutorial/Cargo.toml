@@ -1,5 +1,6 @@
 [workspace]
 members = [
+    "closures",
     "lifetimes",
     "common",
     "ctrl-flow",
@@ -16,5 +17,5 @@ members = [
     "structs",
     "traits",
     "variables",
-    "vectors",
+    "vectors", "closures",
 ]
