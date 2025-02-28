@@ -1,4 +1,31 @@
+mod project;
+
 use std::char;
+
+struct DentistAppointment {
+    doctor: String,
+}
+
+impl DentistAppointment {
+    // Elision rule 2, lifetime of self is connected to lifetime of returned value
+    fn book(&self, check_in_time: &str, check_out_time: &str) -> &str {
+        &self.doctor
+    }
+
+    fn book_2<'a, 'b, 'c>(&'a self, check_in_time: &'b str, check_out_time: &'c str) -> &'b str {
+        check_in_time
+    }
+}
+
+#[derive(Debug)]
+struct TrainSystem<'a> {
+    name: &'a str,
+}
+
+struct TravelPlan<'a> {
+    from: &'a str,
+    to: &'a str,
+}
 
 fn create() -> i32 {
     let age = 100;
@@ -37,7 +64,39 @@ fn choose_bad<'a, 'b>(first: &'a str, second: &'a str) -> &'a str {
     }
 }
 
+/*
+fn figure_out_ending_point<'a>(from: &'a str) -> &'a str {
+    let to = String::from("Paris");
+
+    let travel_plan = TravelPlan {
+        from: from,
+        to: &to,
+    };
+
+    travel_plan.from
+}
+     */
+
+fn say_hello() -> &'static str {
+    "Hello"
+}
+
 fn main() {
+    let from = String::from("London");
+
+    /*
+    let plan = {
+        let to = String::from("Paris");
+        let travel_plan = TravelPlan {
+            from: &from,
+            to: &to,
+        };
+
+        travel_plan.from
+        // travel plan wil be valid after this, because `to` is dropped here
+    };
+     */
+
     let first = String::from("First String"); // Long-lived
     let fav;
 
@@ -101,4 +160,12 @@ fn main() {
         let two_coffees = select_first_two_elements(&coffees);
         println!("{two_coffees:?}")
     }
+
+    let train_system = TrainSystem {
+        name: &String::from("London Underground"),
+    };
+
+    println!("{:?}", train_system);
+
+    project::run();
 }
