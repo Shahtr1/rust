@@ -1,4 +1,9 @@
+use core::num;
+
+use common::separator;
+
 fn main() {
+    separator("Fn()");
     let multiplier = 5;
 
     let multiply_by = |value: i32| -> i32 { value * multiplier };
@@ -16,9 +21,31 @@ fn main() {
     print_numbers();
     println!("{:?}", numbers);
 
+    separator("FnMut()");
     let mut add_number = || numbers.push(100);
     add_number();
     add_number();
 
     println!("{:?}", numbers);
+
+    separator("FnOnce()");
+    let number = 13;
+    let capture_number = || number;
+    let a = capture_number();
+    let b = capture_number();
+    println!("{a},{b},{number}");
+
+    let first_name = String::from("Alice");
+    let capture_string = || first_name;
+    // println!("{first_name}"); // no longer the owner
+    let owner = capture_string();
+    // capture_string(); // cannot execute more than once
+
+    let first_name = String::from("Alice");
+    let capture_string_2 = || {
+        let person = first_name;
+        println!("{person}")
+    };
+    capture_string_2();
+    // capture_string_2(); // can't call again
 }
