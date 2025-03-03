@@ -1,6 +1,9 @@
-use core::num;
+mod custom;
+
+use std::io::stdin;
 
 use common::separator;
+use custom::Vault;
 
 fn main() {
     separator("Fn()");
@@ -62,5 +65,32 @@ fn main() {
     capture_string_3();
     capture_string_3();
     capture_string_3();
-    println!("All three will be allowed to call, as move occurs but not owned")
+    println!("All three will be allowed to call, as move occurs but not owned");
+
+    separator("unwrap_or_else");
+
+    let option = Some("Salami");
+    let food = option.unwrap_or_else(|| "Pizza");
+    println!("{food}");
+
+    let option: Option<&str> = None;
+    let food = option.unwrap_or_else(|| "Pizza");
+    println!("{food}");
+
+    separator("Custom Fn impl");
+    let vault = Vault {
+        password: String::from("topsecret"),
+        treasure: String::from("Gold"),
+    };
+
+    let hack = || {
+        let mut user_input = String::new();
+        println!("Please provide a password to crack the vault");
+        stdin().read_line(&mut user_input);
+        user_input = user_input.trim().to_string();
+        user_input
+    };
+
+    let extraction = vault.unlock(hack);
+    println!("{:?}", extraction);
 }
