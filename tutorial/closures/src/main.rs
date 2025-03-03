@@ -48,4 +48,19 @@ fn main() {
     };
     capture_string_2();
     // capture_string_2(); // can't call again
+
+    separator("Move keyword");
+    let first_name = String::from("Alice");
+    let last_name = String::from("Wonderland");
+    let capture_string_3 = move || {
+        print!("{first_name} ");
+        println!("{last_name}");
+    };
+
+    // println!("{first_name}"); // error: all value sin closure are moved
+
+    capture_string_3();
+    capture_string_3();
+    capture_string_3();
+    println!("All three will be allowed to call, as move occurs but not owned")
 }
