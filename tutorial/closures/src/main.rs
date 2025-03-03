@@ -3,7 +3,7 @@ mod custom;
 use std::io::stdin;
 
 use common::separator;
-use custom::Vault;
+use custom::{bake_cake, execute_thrice, Location, Map, Vault};
 
 fn main() {
     separator("Fn()");
@@ -93,4 +93,64 @@ fn main() {
 
     let extraction = vault.unlock(hack);
     println!("{:?}", extraction);
+
+    separator("String Retain");
+    let mut game_console = String::from("PlayStation");
+    let closure = |character| character != 'a';
+    game_console.retain(closure);
+
+    println!("{:?}", game_console);
+
+    let mut deleted_characters = String::new();
+
+    let closure_2 = |character| {
+        let is_not_a = character != 't';
+        if is_not_a {
+            true
+        } else {
+            deleted_characters.push(character);
+            false
+        }
+    };
+
+    game_console.retain(closure_2);
+
+    println!("{:?}", game_console);
+    println!("{:?}", deleted_characters);
+
+    separator("Custom for FnMut");
+
+    let locations = [
+        Location {
+            name: String::from("Cave"),
+            treasure: 100,
+        },
+        Location {
+            name: String::from("Castle"),
+            treasure: 200,
+        },
+    ];
+
+    let map = Map {
+        locations: &locations,
+    };
+
+    let mut total_treasures = 0;
+
+    let closure = |location: &Location| total_treasures += location.treasure;
+
+    map.explore(closure);
+
+    println!("Total treasures collected: {total_treasures}");
+
+    let mut location_names = Vec::new();
+    map.explore(|location| location_names.push(location.name.clone()));
+
+    println!("Total Locations: {location_names:?}");
+
+    execute_thrice(bake_cake);
+
+    let option: Option<Vec<String>> = None;
+    let collection = option.unwrap_or_else(Vec::new);
+    println!("{:?}", collection);
 }
