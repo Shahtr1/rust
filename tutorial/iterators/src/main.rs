@@ -1,3 +1,6 @@
+mod manual;
+mod traits;
+
 fn main() {
-    println!("Hello, world!");
+    manual::iteration();
 }
