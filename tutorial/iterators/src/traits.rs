@@ -39,7 +39,7 @@ pub fn iteration() {
 
     println!("{vector:?}");
 
-    let cities = vec![
+    let mut cities = vec![
         "New York".to_string(),
         "London".to_string(),
         "Tokyo".to_string(),
@@ -50,4 +50,42 @@ pub fn iteration() {
     }
 
     println!("{cities:?}");
+
+    separator("IterMut trait");
+
+    let iterator = cities.iter_mut();
+
+    for flavour in iterator {
+        flavour.push_str(" Ice Cream");
+    }
+
+    println!("{cities:?}");
+
+    for flavour in &mut cities {
+        flavour.push_str(" More...");
+    }
+
+    println!("{cities:?}");
+
+    separator("Explicitly telling rust to change at address");
+    let mut school_grades = [85, 90, 72, 92];
+
+    for grade in &mut school_grades {
+        // grade -= 2; // wont work, thinks we are trying to subratc from a reference
+        *grade -= 2;
+    }
+
+    println!("{school_grades:?}");
+
+    // OWNERSHIP
+    // for value in collection
+    // for value in collection.into_iter()
+
+    // IMMUTABLE REFERENCES
+    // for value in &collection
+    // for value in collection.iter()
+
+    // MUTABLE REFERENCES
+    // for value in &mut collection
+    // for value in collection.iter_mut()
 }

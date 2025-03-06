@@ -1,6 +1,6 @@
 pub fn separator(heading: &str) {
     let length = heading.len();
-    let dot_length = 40;
+    let dot_length = 50;
     if length > dot_length - 2 {
         eprintln!(
             "Separator length should be less or equal to {}",
