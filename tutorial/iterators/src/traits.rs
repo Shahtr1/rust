@@ -88,4 +88,38 @@ pub fn iteration() {
     // MUTABLE REFERENCES
     // for value in &mut collection
     // for value in collection.iter_mut()
+
+    separator("HashMap");
+
+    let mut todos = HashMap::new();
+    todos.insert("Pick up", false);
+    todos.insert("Drop down", false);
+    todos.insert("Throw right", false);
+
+    for (todo, completion_status) in &mut todos {
+        println!("Task: {todo}. Complete: {completion_status}");
+        *completion_status = true;
+    }
+
+    println!("{todos:?}");
+
+    separator("String or &str");
+
+    let seafood = "Oyster🦪";
+
+    for byte in seafood.bytes() {
+        print!("{byte}/");
+    }
+
+    println!("{seafood}");
+
+    for charcter in seafood.chars() {
+        print!("{charcter}/");
+    }
+
+    println!("{seafood}");
+
+    // exhausts the iterator
+    println!("{}", seafood.bytes().len());
+    println!("{}", seafood.chars().count());
 }
