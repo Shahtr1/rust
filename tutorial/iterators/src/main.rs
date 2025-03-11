@@ -1,6 +1,7 @@
 use common::separator;
 use problem_1::{count_chars, count_words};
 
+mod adapters;
 mod manual;
 mod problem_1;
 mod traits;
@@ -17,4 +18,5 @@ fn main() {
         "{:?}",
         count_chars("Sally sells sea shells by the sea shore")
     );
+    adapters::run();
 }

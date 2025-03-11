@@ -31,7 +31,7 @@ pub fn iteration() {
     separator("iter() method");
 
     let vector = vec![4, 8, 15, 16, 23, 42];
-    // let iterator = vector.iter(); can be shprtened by directly use &vector
+    // let iterator = vector.iter(); can be shortened by directly use &vector
 
     for number in &vector {
         println!("{number}")
