@@ -31,4 +31,21 @@ pub fn run() {
 
     println!("{squares:?}");
     println!("{squares_hashset:?}");
+
+    let names = [
+        String::from("Jimmy"),
+        String::from("Cleveland"),
+        String::from("Boris"),
+    ];
+
+    let name_lengths: Vec<_> = names
+        .iter()
+        .map(|name| name.to_lowercase())
+        .map(|name| name.replace("i", "@@"))
+        .map(|name| name.len())
+        .collect();
+
+    println!("{name_lengths:?}");
+
+    separator("Filter and Find Adapters");
 }
