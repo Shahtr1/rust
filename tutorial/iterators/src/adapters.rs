@@ -143,7 +143,7 @@ pub fn run() {
 
     println!("Any are rust? {}", any_are_rust);
 
-    separator("Cloned(Heap beased) adapter");
+    separator("Cloned (Heap based) adapter");
 
     let teas = [
         "Hot Earl Grey".to_string(),
