@@ -142,4 +142,20 @@ pub fn run() {
         .any(|channel| channel.channel_type == ChannelType::ProgrammingTutorials);
 
     println!("Any are rust? {}", any_are_rust);
+
+    separator("Cloned(Heap beased) adapter");
+
+    let teas = [
+        "Hot Earl Grey".to_string(),
+        "Iced Green".to_string(),
+        "Hot Matcha".to_string(),
+    ];
+
+    let more_teas: Vec<String> = teas
+        .iter()
+        .filter(|tea| tea.contains("Hot"))
+        .cloned()
+        .collect();
+
+    println!("{more_teas:?}");
 }
