@@ -123,5 +123,23 @@ pub fn run() {
         .iter()
         .find(|channel| channel.channel_type == ChannelType::ProgrammingTutorials);
 
-    println!("{good_channel:?}")
+    println!("{good_channel:?}");
+
+    separator("Any and All adapters");
+
+    println!("{}", good_channels.len() == channels.len());
+
+    println!("{}", good_channel.is_some());
+
+    let all_are_rust = good_channels
+        .iter()
+        .all(|channel| channel.channel_type == ChannelType::ProgrammingTutorials);
+
+    println!("Are all rust? {}", all_are_rust);
+
+    let any_are_rust = channels
+        .iter()
+        .any(|channel| channel.channel_type == ChannelType::ProgrammingTutorials);
+
+    println!("Any are rust? {}", any_are_rust);
 }
