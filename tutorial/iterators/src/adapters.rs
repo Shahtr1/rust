@@ -191,4 +191,27 @@ pub fn run() {
     let values = spreadsheet.into_iter().flatten().collect::<Vec<i32>>();
 
     println!("{values:?}");
+
+    separator("flatMap adapter");
+
+    let attendees = [
+        "Bob, Mary, Kevin",
+        "Mike, Robbie, Matt, Austin",
+        "Piers, Liam",
+    ];
+
+    let attendees: Vec<&str> = attendees
+        .iter()
+        .map(|group| group.split(", "))
+        .flatten()
+        .collect();
+
+    println!("{attendees:?}");
+
+    let attendees: Vec<&str> = attendees
+        .iter()
+        .flat_map(|group| group.split(", "))
+        .collect();
+
+    println!("{attendees:?}");
 }
