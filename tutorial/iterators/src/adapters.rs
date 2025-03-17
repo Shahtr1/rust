@@ -183,4 +183,12 @@ pub fn run() {
         .collect();
 
     println!("{capitalized_stocks:?}");
+
+    separator("flatten adapter");
+
+    let spreadsheet = vec![[100, 200, 300], [1, 2, 3], [4, 5, 6]];
+
+    let values = spreadsheet.into_iter().flatten().collect::<Vec<i32>>();
+
+    println!("{values:?}");
 }
