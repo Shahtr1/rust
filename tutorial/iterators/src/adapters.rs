@@ -214,4 +214,22 @@ pub fn run() {
         .collect();
 
     println!("{attendees:?}");
+
+    separator("enumerate adapter");
+
+    let applicants = vec!["Rob", "Bob", "Cob", "Alex", "Piers", "John", "Dan"];
+
+    let winners = applicants
+        .into_iter()
+        .enumerate()
+        .filter_map(|(index, applicant)| {
+            if index % 3 == 0 {
+                Some(applicant)
+            } else {
+                None
+            }
+        })
+        .collect::<Vec<&str>>();
+
+    println!("{winners:?}");
 }
