@@ -232,4 +232,32 @@ pub fn run() {
         .collect::<Vec<&str>>();
 
     println!("{winners:?}");
+
+    separator("partition adapter");
+
+    let numbers = [4, 8, 15, 16, 23, 42];
+
+    let (evens, odds): (Vec<i32>, Vec<i32>) =
+        numbers.into_iter().partition(|number| number % 2 == 0);
+
+    println!("Evens: {evens:?}");
+    println!("Odds: {odds:?}");
+
+    separator("zip adapter");
+
+    let first_names = ["Casey", "Robert", "Cargo", "Dan"];
+
+    let last_names = ["Johnson", "Smith", "Rustman"];
+
+    for (first_name, last_name) in first_names.iter().zip(last_names) {
+        println!("{first_name} {last_name}")
+    }
+
+    let complete_names = first_names
+        .iter()
+        .zip(last_names)
+        .map(|(first_name, last_name)| format!("{first_name} {last_name}"))
+        .collect::<Vec<String>>();
+
+    println!("{complete_names:?}");
 }
