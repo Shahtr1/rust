@@ -1,5 +1,5 @@
 use core::num;
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 
 use common::separator;
 
@@ -260,4 +260,44 @@ pub fn run() {
         .collect::<Vec<String>>();
 
     println!("{complete_names:?}");
+
+    separator("fold adapter");
+
+    let earnings = [4, 7, 9, 13];
+
+    let sum = earnings.into_iter().fold(0, |total, current| {
+        println!("Total: {total}, current: {current}");
+        total + current
+    });
+
+    println!("sum: {sum}");
+
+    let week = [
+        SupportStaff {
+            day: "Monday".to_string(),
+            employee: "Brian".to_string(),
+        },
+        SupportStaff {
+            day: "Tuesday".to_string(),
+            employee: "cam".to_string(),
+        },
+        SupportStaff {
+            day: "Wednesday".to_string(),
+            employee: "Walter".to_string(),
+        },
+    ];
+
+    let weekMap = week.into_iter().fold(HashMap::new(), |mut map, entry| {
+        map.insert(entry.day, entry.employee);
+        map
+    });
+
+    println!("{weekMap:?}");
+
+    separator("reduce adapter");
+}
+
+struct SupportStaff {
+    day: String,
+    employee: String,
 }
