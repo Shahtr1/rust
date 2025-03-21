@@ -44,4 +44,23 @@ pub fn run() {
         .reduce(|acc, current| acc.max(current));
 
     println!("{max:?}");
+
+    let performers = ["Rustful Five", "Rust in Peace", "Rustin Bieber"];
+
+    let last = performers.iter().last().unwrap();
+
+    println!("{last}");
+
+    let second = performers.iter().nth(1).unwrap();
+
+    println!("{second}");
+
+    let nth_back = performers.iter().nth_back(2).unwrap();
+
+    println!("{nth_back}");
+
+    let position = performers
+        .iter()
+        .position(|element| *element == "Rustin Bieber");
+    println!("position: {position:?}");
 }
